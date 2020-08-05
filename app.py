@@ -28,14 +28,12 @@ def torrent(search):
     
 
     for tr in table_rows:
-        td = tr.find_all('td',{'class':["coll-1","name"]})
         tp = tr.find_all('td',{'class':["size"]}) 
         date_find = tr.find_all('td',{'class':["coll-date"]})
         seeder_find =tr.find_all('td',{'class':["coll-2","seeds"]})
         leecher_find =tr.find_all('td',{'class':["coll-3" ,"leeches"]})
 
-        for name,size,date,seeder,leecher in zip(td,tp,date_find,seeder_find,leecher_find):
-            file_name.append(name.text)
+        for size,date,seeder,leecher in zip(tp,date_find,seeder_find,leecher_find):
             date_list.append(date.text)
             seeder_list.append(seeder.text)
             leecher_list.append(leecher.text)
@@ -68,6 +66,9 @@ def torrent(search):
                     'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'})
         new_soup = BeautifulSoup(magnet_req.content,'lxml')
         everything_data_list = []
+
+        div = new_soup.find('div',class_='box-info-heading').text
+        file_name.append(div)
         for span in new_soup.find_all('span'):
             if span.text != "":
                 everything_data_list.append(span.text)
@@ -80,9 +81,11 @@ def torrent(search):
             file.writelines(str(magnet_req.content))
 
         with open('source.txt','r+') as f:
-            for line in f:       
+            for line in f: 
+                # reading each word         
                 for word in line.split(): 
-                    if 'magnet' in word:            
+                    if 'magnet' in word:
+                    # displaying the words            
                         magnet_url_list_append.append(word)
         magnet_url = magnet_url_list_append[0].split('"')[1]
         magnet_url_list.append(magnet_url)
@@ -91,7 +94,7 @@ def torrent(search):
 
 @app.route('/')
 def home_page():
-    return "Welcome To Unofficial Torrent API"
+    return "Welcome"
 
 @app.route('/<query>')
 def home(query):
@@ -112,4 +115,4 @@ def home(query):
 
 if __name__ == "__main__":
     app.debug = True
-    app.run(port=5000)
+    app.run(host"0.0.0.0",port=5000)
