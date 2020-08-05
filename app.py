@@ -71,6 +71,7 @@ def torrent(search):
         url_list = "https://1337x.to"+url_list
         # magnet_req = requests.get(url_list,headers={
         #             'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'})
+        print('hello')
         driver.get(url_list)
         sleep(5)
         magnet_req = driver.find_element_by_xpath("/html/body/main/div/div/div/div[2]/div[1]/ul[1]/li[1]/a")
