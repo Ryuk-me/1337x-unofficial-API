@@ -21,13 +21,22 @@ def torrent(search):
 
     file_name = []
     file_size = []
+    date_list = []
+    seeder_list = []
+    leecher_list =[]
 
     for tr in table_rows:
         td = tr.find_all('td',{'class':["coll-1","name"]})
         tp = tr.find_all('td',{'class':["size"]}) 
-        # row = [i.text for i in td]
-        for name,size in zip(td,tp):
+        date_find = tr.find_all('td',{'class':["coll-date"]})
+        seeder_find =tr.find_all('td',{'class':["coll-2","seeds"]})
+        leecher_find =tr.find_all('td',{'class':["coll-3" ,"leeches"]})
+
+        for name,size,date,seeder,leecher in zip(td,tp,date_find,seeder_find,leecher_find):
             file_name.append(name.text)
+            date_list.append(date.text)
+            seeder_list.append(seeder.text)
+            leecher_list.append(leecher.text)
             if "GB" in size.text:
                 size = size.text.split(' ')[0]+" GB"
                 file_size.append(size)
@@ -36,8 +45,6 @@ def torrent(search):
                 file_size.append(size)
 
 
-    table = soup.find('table')
-    table_rows = table.find_all('tr')
     link_list = []
 
     for a in soup.find_all('a', href=True, text=True):
@@ -46,7 +53,7 @@ def torrent(search):
             link_text = "https://1337x.to"+link_text
             link_list.append(link_text)
 
-    return file_name,file_size,link_list
+    return file_name,file_size,link_list,date_list,seeder_list,leecher_list
 
 @app.route('/')
 def home_page():
@@ -55,11 +62,9 @@ def home_page():
 @app.route('/<query>')
 def home(query):
 
-    file_name,file_size,link_list = torrent(query)
+    file_name,file_size,link_list,date_list,seeder_list,leecher_list = torrent(query)
 
-    #all_data = [{'name':file_name[index],'size':file_size[index],'url':link_list[index]} for index in range(len(file_name))]
-
-    return jsonify([{'name':file_name[index],'size':file_size[index],'url':link_list[index]} for index in range(len(file_name))])
+    return jsonify([{'Name':file_name[index],'size':file_size[index],'url':link_list[index],'date': date_list[index],'seeders':seeder_list[index],'leechers': leecher_list[index]} for index in range(len(file_name))])
 
 
 
