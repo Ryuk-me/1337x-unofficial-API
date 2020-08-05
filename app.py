@@ -57,9 +57,9 @@ def home(query):
 
     file_name,file_size,link_list = torrent(query)
 
-    all_data = [{'name':file_name[index],'size':file_size[index],'url':link_list[index]} for index in range(len(file_name))]
+    #all_data = [{'name':file_name[index],'size':file_size[index],'url':link_list[index]} for index in range(len(file_name))]
 
-    return jsonify(all_data)
+    return jsonify([{'name':file_name[index],'size':file_size[index],'url':link_list[index]} for index in range(len(file_name))])
 
 
 
