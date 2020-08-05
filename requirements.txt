@@ -2,4 +2,5 @@ flask
 beautifulsoup4
 requests
 gunicorn
+selenium
 lxml
