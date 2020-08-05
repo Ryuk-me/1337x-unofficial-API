@@ -1,4 +1,4 @@
 flask
-BeautifulSoup
+beautifulsoup4
 requests
 gunicorn
