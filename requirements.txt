@@ -1,0 +1,4 @@
+flask
+BeautifulSoup
+requests
+gunicorn
