@@ -85,7 +85,7 @@ def torrent(search):
 
 @app.route('/')
 def home_page():
-    return "Welcome"
+    return "Welcome to 1337x unofficial API"
 
 @app.route('/<query>')
 def home(query):
@@ -104,7 +104,6 @@ def home(query):
     'category': category_list[index],
     'type': type_list[index]} 
     for index in range(len(file_name))])
-
 
 
 if __name__ == "__main__":
