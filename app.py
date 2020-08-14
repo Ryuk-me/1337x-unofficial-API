@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from flask import Flask ,jsonify
 import json
 import os
+import re
 
 
 app = Flask(__name__)
@@ -43,7 +44,6 @@ def torrent(search):
     
 
     for url_list in link_list:
-        magnet_url_list_append = []
 
         magnet_req = requests.get(url_list,headers={
                     'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'})
@@ -67,18 +67,8 @@ def torrent(search):
         leecher_list.append(everything_data_list[10])
         language_list.append(everything_data_list[3])
         
-        
-        with open("source.txt",'w') as file:
-            file.writelines(str(magnet_req.content))
+        magnet_url = re.findall(r"\"magnet:.*?\"",str(magnet_req.content))[0].strip(" \" ")
 
-        with open('source.txt','r+') as f:
-            for line in f: 
-                # reading each word         
-                for word in line.split(): 
-                    if 'magnet' in word:
-                    # displaying the words            
-                        magnet_url_list_append.append(word)
-        magnet_url = magnet_url_list_append[0].split('"')[1]
         magnet_url_list.append(magnet_url)
     
     return file_name,file_size,link_list,date_uploaded_list,seeder_list,leecher_list,magnet_url_list,total_downloads_list,last_checked_list,language_list,type_list,category_list
@@ -104,6 +94,8 @@ def home(query):
     'category': category_list[index],
     'type': type_list[index]} 
     for index in range(len(file_name))])
+
+
 
 if __name__ == "__main__":
     app.debug = True
