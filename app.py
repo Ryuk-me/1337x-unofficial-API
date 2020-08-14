@@ -105,7 +105,9 @@ def home(query):
     'type': type_list[index]} 
     for index in range(len(file_name))])
 
-
 if __name__ == "__main__":
     app.debug = True
-    app.run(host="0.0.0.0",port=5000)
+    app.run(port=5000)
+# if __name__ == "__main__":
+#     app.debug = True
+#     app.run(host="0.0.0.0",port=5000)
