@@ -1,6 +1,9 @@
 # 1337x-unofficial-API
 1337x Torrent API
 
+# Requirements
+`pip install -r requirements.txt`
+
 ## API 
 `https://torrent-api-1337x.herokuapp.com/{query}`<br /><br />
 
