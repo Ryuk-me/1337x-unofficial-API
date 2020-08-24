@@ -25,3 +25,5 @@ Example : `https://torrent-api-1337x.herokuapp.com/avengers`<br /><br />
       url: "https://1337x.to/torrent/3911065/Avengers-Endgame-2019-WEBRip-1080p-YTS-YIFY/"
 }
 ```
+# DEPLOY
+Fork this repo and Deploy on Heroku or use on local host.
