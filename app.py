@@ -4,6 +4,7 @@ from flask import Flask ,jsonify
 import json
 import os
 import re
+import concurrent.futures
 
 
 app = Flask(__name__)
@@ -40,11 +41,10 @@ def torrent(search):
     language_list =[]
     category_list = []
     type_list = []
-
+    
     
 
-    for url_list in link_list:
-
+    def get_all_data_torrent(url_list):
         magnet_req = requests.get(url_list,headers={
                     'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'})
         new_soup = BeautifulSoup(magnet_req.content,'lxml')
@@ -70,9 +70,10 @@ def torrent(search):
         magnet_url = re.findall(r"\"magnet:.*?\"",str(magnet_req.content))[0].strip(" \" ")
 
         magnet_url_list.append(magnet_url)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.map(get_all_data_torrent,link_list)
     
     return file_name,file_size,link_list,date_uploaded_list,seeder_list,leecher_list,magnet_url_list,total_downloads_list,last_checked_list,language_list,type_list,category_list
-
 @app.route('/')
 def home_page():
     return "Welcome to 1337x unofficial API"
