@@ -5,7 +5,7 @@
 `pip install -r requirements.txt`
 
 ## API 
-`https://torrent-api-1337x.herokuapp.com/{query}`<br /><br />
+`https://torrent-api-1337x-unofficial.herokuapp.com/{query}`<br /><br />
 
 Example : `https://torrent-api-1337x.herokuapp.com/avengers`<br /><br />
 
