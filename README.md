@@ -7,7 +7,7 @@
 ## API 
 `https://torrent-api-1337x-unofficial.herokuapp.com/{query}`<br /><br />
 
-Example : `https://torrent-api-1337x.herokuapp.com/avengers`<br /><br />
+Example : `https://torrent-api-1337x-unofficial.herokuapp.com/avengers`<br /><br />
 
 ```json
 {
